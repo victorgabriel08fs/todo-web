@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsFillTrashFill, BsListTask } from 'react-icons/bs';
+import { MdWorkspacesFilled } from 'react-icons/md';
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 
@@ -38,7 +39,7 @@ const UsersList = ({ users }) => {
                                             {user.email}
                                         </p>
                                     </div>
-                                    <Link to={`/tasks/${user.id}`}><BsListTask fontSize={26} className="text-blue-600 dark:text-blue-500 cursor-pointer" /></Link>
+                                    <Link to={`/workspaces/${user.id}`}><MdWorkspacesFilled fontSize={26} className="text-blue-600 dark:text-blue-500 cursor-pointer" /></Link>
                                     <div className="flex min-w-0">
                                         <BsFillTrashFill fontSize={20} onClick={() => { deleteUser(user) }} className="text-blue-600 dark:text-blue-500 cursor-pointer" />
                                     </div>

@@ -20,7 +20,6 @@ const TasksPage = () => {
     style['textStyleCurrent'] = "w-5 h-5 mr-2 text-blue-600 dark:text-blue-500";
     style['linkStyleNotCurrent'] = "inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group";
     style['textStyleNotCurrent'] = "w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300";
-    const ref = useHref();
     const { id } = useParams();
 
     const getTasks = async () => {
@@ -62,6 +61,12 @@ const TasksPage = () => {
                             <Link to="/users" className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Users</Link>
                         </div>
                     </li>
+                    <li>
+                        <div className="flex items-center">
+                            <FaGreaterThan className="ml-2 text-blue-600 dark:text-blue-500" />
+                            <Link to={`/workspaces/${id}`} className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Workspaces</Link>
+                        </div>
+                    </li>
                     <li aria-current="page">
                         <div className="flex items-center">
                             <FaGreaterThan className="ml-2 text-blue-600 dark:text-blue-500" />
@@ -89,7 +94,7 @@ const TasksPage = () => {
 
 
             {
-                loading ? <Loading /> : (list ? <TasksList stats={stats} tasks={tasks} /> : <TaskForm userId={id} />)}</>
+                loading ? <Loading /> : (list ? <TasksList stats={stats} tasks={tasks} /> : <TaskForm workspaceId={id} />)}</>
     );
 }
 

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import api from "../../services/api";
 
-const TaskForm = ({ userId }) => {
+const TaskForm = ({ workspaceId }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const handleSubmit = async (e) => {
-        await api.post('task', { title, description, userId, date });
+        await api.post('task', { title, description, workspaceId, date });
     }
 
     return (

@@ -6,6 +6,7 @@ import HomePage from "../pages/HomePage";
 import TasksPage from "../pages/TasksPage";
 
 import UsersPage from "../pages/UsersPage";
+import WorkspacePage from "../pages/WorkspacePage";
 
 const MainRoutes = () => {
     return (
@@ -16,6 +17,7 @@ const MainRoutes = () => {
                 <Routes>
                     <Route element={<HomePage />} path="/" />
                     <Route element={<TasksPage />} path="/tasks/:id?" />
+                    <Route element={<WorkspacePage />} path="/workspaces/:id?" />
                     <Route element={<UsersPage />} path="/users" />
                 </Routes>
             </Body>
