@@ -1,12 +1,18 @@
 import './App.css';
 import 'flowbite';
 
-import MainRoutes from './routes';
+import Routes from './routes';
+import { AuthProvider } from './contexts/auth';
 
 function App() {
-  return <>
-    <MainRoutes />
-  </>
+  return (
+    <div>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </div>
+  );
+
 }
 
 export default App;

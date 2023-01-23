@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Loading from "../../components/Loading";
-import WorkspaceForm from "../../components/WorkspaceForm";
-import WorkspacesList from "../../components/WorkspacesList";
-import { BsListTask } from "react-icons/bs";
-import { FaGreaterThan } from "react-icons/fa";
+import { useEffect } from "react";
+import { useState } from "react";
 import { AiFillHome, AiOutlinePlus } from "react-icons/ai";
-import api from "../../services/api";
+import { BsListTask } from "react-icons/bs";
+import { FaGreaterThan } from 'react-icons/fa';
+import { Link, useHref, useNavigate, useParams } from "react-router-dom";
+import Loading from "../../../components/Loading";
+import TaskForm from "../../../components/TaskForm";
+import TasksList from "../../../components/TasksList";
+import api from "../../../services/api";
 
-
-const WorkspacePage = () => {
-    const [workspaces, setWorkspaces] = useState([]);
+const TasksPage = () => {
+    const [tasks, setTasks] = useState([]);
     const [stats, setStats] = useState({});
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -22,20 +22,29 @@ const WorkspacePage = () => {
     style['textStyleNotCurrent'] = "w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300";
     const { id } = useParams();
 
-    const getWorkspaces = async () => {
-        await api.get(`workspace/${id}`).then((response) => {
+    const getTasks = async () => {
+        await api.get(`task/${id}`).then((response) => {
             var data = response.data;
-            setWorkspaces(data);
+            setTasks(data);
             setLoading(false);
         });
+        var countDone = 0;
+        var count = 0;
+        tasks.map((task) => {
+            if (task.done) {
+                countDone++;
+            }
+            count++;
+        });
+        setStats({ 'countDone': countDone, 'count': count })
     }
 
     useEffect(() => {
         if (id == null) {
             navigate("/users");
         }
-        getWorkspaces();
-    }, [workspaces]);
+        getTasks();
+    }, [tasks]);
 
     return (
         <>
@@ -49,13 +58,13 @@ const WorkspacePage = () => {
                     <li>
                         <div className="flex items-center">
                             <FaGreaterThan className="ml-2 text-blue-600 dark:text-blue-500" />
-                            <Link to="/users" className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Users</Link>
+                            <Link to={`/`} className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Workspaces</Link>
                         </div>
                     </li>
                     <li aria-current="page">
                         <div className="flex items-center">
                             <FaGreaterThan className="ml-2 text-blue-600 dark:text-blue-500" />
-                            <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Workspaces</span>
+                            <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Tasks</span>
                         </div>
                     </li>
                 </ol>
@@ -66,7 +75,7 @@ const WorkspacePage = () => {
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
                         <button onClick={() => { if (!list) { setList(!list) } }} className={list ? style['linkStyleCurrent'] : style['linkStyleNotCurrent']}>
-                            <BsListTask className={list ? style['textStyleCurrent'] : style['textStyleNotCurrent']} />Workspaces
+                            <BsListTask className={list ? style['textStyleCurrent'] : style['textStyleNotCurrent']} />Tasks
                         </button>
                     </li>
                     <li className="mr-2">
@@ -79,7 +88,8 @@ const WorkspacePage = () => {
 
 
             {
-                loading ? <Loading /> : (list ? <WorkspacesList workspaces={workspaces} /> : <WorkspaceForm userId={id} />)}</>
+                loading ? <Loading /> : (list ? <TasksList stats={stats} tasks={tasks} /> : <TaskForm workspaceId={id} />)}</>
     );
 }
-export default WorkspacePage;
+
+export default TasksPage;
