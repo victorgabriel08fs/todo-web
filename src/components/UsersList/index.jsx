@@ -7,6 +7,17 @@ import api from "../../services/api";
 
 const UsersList = ({ users }) => {
 
+    const reduceName = (name) => {
+        var firstName = '';
+        for (var i = 0; i < name.length; i++) {
+            if (name[i] !== ' ' || i + 1 === name.length) {
+                firstName = firstName + name[i];
+            }
+            
+        }
+        return firstName;
+    }
+
     const [viewAll, setViewAll] = useState(true);
 
     const deleteUser = async (user) => {
@@ -33,7 +44,7 @@ const UsersList = ({ users }) => {
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            {user.avatar}
+                                            {reduceName(user.name)}
                                         </p>
                                         <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                                             {user.email}
