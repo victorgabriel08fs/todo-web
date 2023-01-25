@@ -29,14 +29,17 @@ const UsersList = ({ users }) => {
                             <li key={user.id} className="py-3 sm:py-4">
                                 <div className="flex items-center space-x-4">
                                     <div className="flex-shrink-0">
-                                        <img className="w-8 h-8 rounded-full" src="https://avatars.githubusercontent.com/u/54713041?v=4" alt="Neil image" />
+                                        <img className="w-8 h-8 rounded-full" src={`assets/images/${user.avatar}`} alt="Neil image" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            {user.name}
+                                            {user.avatar}
                                         </p>
                                         <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                                             {user.email}
+                                        </p>
+                                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                            {user.isAdmin ? 'Admin' : 'User'}
                                         </p>
                                     </div>
                                     <Link to={`/workspaces/${user.id}`}><MdWorkspacesFilled fontSize={26} className="text-blue-600 dark:text-blue-500 cursor-pointer" /></Link>

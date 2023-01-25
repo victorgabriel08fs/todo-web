@@ -22,7 +22,8 @@ const WorkspacePage = () => {
     style['textStyleCurrent'] = "w-5 h-5 mr-2 text-blue-600 dark:text-blue-500";
     style['linkStyleNotCurrent'] = "inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group";
     style['textStyleNotCurrent'] = "w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300";
-    const id = context.user.id;
+    var { id } = useParams();
+    id = id ?? context.user.id;
 
     const getWorkspaces = async () => {
         await api.get(`workspace/${id}`).then((response) => {

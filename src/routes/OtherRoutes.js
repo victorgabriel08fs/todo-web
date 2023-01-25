@@ -18,6 +18,7 @@ const OtherRoutes = () => {
                 <Routes>
                     <Route element={<TasksPage />} path="/tasks/:id?" />
                     <Route element={<WorkspacePage />} path="/" />
+                    <Route element={<WorkspacePage />} path="/workspaces/:id?" />
                     <Route element={<UsersPage />} path="/users" />
                 </Routes>
             </Body>
